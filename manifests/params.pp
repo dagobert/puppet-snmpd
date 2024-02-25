@@ -80,10 +80,18 @@ class snmpd::params {
   }
 
   $config_file_owner = $::operatingsystem ? {
+    /(?i:Debian)/  => $::lsbmajdistrelease ? {
+      /^(5|6|7|8|9|10|11)/ => 'root',
+      default               => 'Debian-snmp',
+    },
     default => 'root',
   }
 
   $config_file_group = $::operatingsystem ? {
+    /(?i:Debian)/  => $::lsbmajdistrelease ? {
+      /^(5|6|7|8|9|10|11)/ => 'root',
+      default               => 'Debian-snmp',
+    },
     /(?i:Solaris)/ => 'bin',
     /(?i:OpenBSD)/ => 'wheel',
     default        => 'root',
